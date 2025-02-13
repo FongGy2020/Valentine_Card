@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <style>
+        /* ตั้งค่าหน้าหลักของเว็บ */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffccd5; /* พื้นหลังสีชมพู */
+            margin: 0;
+            overflow: hidden;
+        }
+        /* ตั้งค่าการ์ดที่สามารถพลิกได้ */
+        .card {
+            width: 300px;
+            height: 200px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        /* ตั้งค่าด้านหน้าหรือด้านหลังของการ์ด */
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            flex-direction: column;
+        }
+        .front {
+            background-color: white;
+        }
+        .back {
+            background-color: #ff4d6d; /* สีแดงชมพู */
+            color: white;
+            transform: rotateY(180deg);
+            padding: 10px;
+            position: relative;
+        }
+        .flipped {
+            transform: rotateY(180deg); /* พลิกการ์ดเมื่อกด */
+        }
+        /* ตั้งค่าเอฟเฟกต์หัวใจลอยขึ้น */
+        .floating-heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: floatUp 2s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- การ์ดที่สามารถคลิกเพื่อพลิกด้าน -->
+    <div class="card" onclick="flipCard()">
+        <div class="front">❤️ กดตรงนี้ ❤️</div>
+        <div class="back">
+            <p>สุขสันต์วันวาเลนไทน์</p>
+            <p>รักอ้วงที่สุดน้า เบิ้บๆ</p>
+            <p>LoveU ❤️</p>
+        </div>
+    </div>
+    
+    <script>
+        /* ฟังก์ชันสำหรับพลิกการ์ด */
+        function flipCard() {
+            document.querySelector('.card').classList.toggle('flipped');
+            createHearts();
+        }
+        
+        /* ฟังก์ชันสร้างหัวใจลอยขึ้นเมื่อกดการ์ด */
+        function createHearts() {
+            for (let i = 0; i < 20; i++) { // สร้างหัวใจ 20 ดวง
+                let heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('floating-heart');
+                heart.style.left = Math.random() * window.innerWidth + 'px'; // สุ่มตำแหน่งแนวนอน
+                heart.style.top = Math.random() * window.innerHeight + 'px'; // สุ่มตำแหน่งแนวตั้ง
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000); // ลบหัวใจหลังจาก 2 วินาที
+            }
+        }
+    </script>
+</body>
+</html>
